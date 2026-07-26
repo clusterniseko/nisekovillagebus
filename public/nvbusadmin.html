@@ -1022,15 +1022,15 @@ function applyRoleUI() {
   } else {
     /* Restore interactive dropdown if it was replaced */
     if (!hotelWrap.querySelector('#filterHotelTrigger')) {
-      hotelWrap.innerHTML = \`<button id="filterHotelTrigger" class="filter-select" style="width:100%;text-align:left;cursor:pointer;padding-right:34px;" type="button">All hotels</button>
-        <div id="filterHotelDropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--card);border:1px solid var(--border);z-index:200;box-shadow:0 8px 24px var(--shadow);">
-          <div class="bus-ms-item" data-value="__all__">All hotels</div>
-          <div class="bus-ms-item" data-value="Hilton Niseko Village">Hilton Niseko Village</div>
-          <div class="bus-ms-item" data-value="Moxy">Moxy</div>
-          <div class="bus-ms-item" data-value="Hinode Hills">Hinode Hills</div>
-          <div class="bus-ms-item" data-value="Ritz-Carlton Reserve">Ritz-Carlton Reserve</div>
-          <div class="bus-ms-item" data-value="Other">Other</div>
-        </div>\`;
+      hotelWrap.innerHTML = '<button id="filterHotelTrigger" class="filter-select" style="width:100%;text-align:left;cursor:pointer;padding-right:34px;" type="button">All hotels</button>' +
+        '<div id="filterHotelDropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--card);border:1px solid var(--border);z-index:200;box-shadow:0 8px 24px var(--shadow);">' +
+          '<div class="bus-ms-item" data-value="__all__">All hotels</div>' +
+          '<div class="bus-ms-item" data-value="Hilton Niseko Village">Hilton Niseko Village</div>' +
+          '<div class="bus-ms-item" data-value="Moxy">Moxy</div>' +
+          '<div class="bus-ms-item" data-value="Hinode Hills">Hinode Hills</div>' +
+          '<div class="bus-ms-item" data-value="Ritz-Carlton Reserve">Ritz-Carlton Reserve</div>' +
+          '<div class="bus-ms-item" data-value="Other">Other</div>' +
+        '</div>';
     }
     updateHotelTriggerLabel();
     syncHotelCheckedState();
