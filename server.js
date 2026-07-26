@@ -6,7 +6,10 @@ const cors     = require('cors');
 const path     = require('path');
 
 const app  = express();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const pool = new Pool({ 
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL?.includes('railway.internal') ? false : { rejectUnauthorized: false }
+});
 const JWT_SECRET = process.env.JWT_SECRET;
 const PORT       = process.env.PORT || 3000;
 
