@@ -17,9 +17,9 @@ if (!process.env.PASS_MOXY)   throw new Error('Missing env var: PASS_MOXY');
 
 // ── Users — credentials loaded exclusively from Railway environment variables ──
 const USERS = {
-  niseko: { pass: process.env.PASS_NISEKO, role: 'master', label: 'Niseko Village',   hotelFilter: null },
-  ritz:   { pass: process.env.PASS_RITZ,   role: 'hotel',  label: 'The Ritz-Carlton', hotelFilter: 'Ritz-Carlton Reserve' },
-  moxy:   { pass: process.env.PASS_MOXY,   role: 'hotel',  label: 'Moxy',             hotelFilter: 'Moxy' },
+  nisekovillage: { pass: process.env.PASS_NISEKO, role: 'master', label: 'Niseko Village',   hotelFilter: null },
+  nvmoxy:        { pass: process.env.PASS_MOXY,   role: 'hotel',  label: 'Moxy',             hotelFilter: 'Moxy' },
+  nvritz:        { pass: process.env.PASS_RITZ,   role: 'hotel',  label: 'The Ritz-Carlton', hotelFilter: 'Ritz-Carlton Reserve' },
 };
 
 // ── Middleware ─────────────────────────────────────────────────────────────
