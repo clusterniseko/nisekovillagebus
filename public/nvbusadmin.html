@@ -1017,9 +1017,18 @@ function applyRoleUI() {
   if (!isMaster && currentUser.hotelFilter) {
     _selectedHotels = new Set([currentUser.hotelFilter]);
     updateHotelTriggerLabel();
-    document.getElementById('filterHotelTrigger').disabled = true;
+    syncHotelCheckedState();
+    const trigger = document.getElementById('filterHotelTrigger');
+    trigger.disabled = true;
+    trigger.style.opacity = '1';
+    trigger.style.cursor = 'default';
+    trigger.style.pointerEvents = 'none';
   } else {
-    document.getElementById('filterHotelTrigger').disabled = false;
+    const trigger = document.getElementById('filterHotelTrigger');
+    trigger.disabled = false;
+    trigger.style.opacity = '';
+    trigger.style.cursor = '';
+    trigger.style.pointerEvents = '';
   }
 
   /* Hide Trash and Settings panels from hotel roles */
@@ -2750,7 +2759,6 @@ async function pollForUpdates() {
       _cancel = normCancel;
       _trash  = normTrash;
       reRenderActivePanel();
-      /* update cancellations badge in nav */
       const pending = _cancel.filter(r => (r.status||'pending') === 'pending').length;
       const badge = document.getElementById('cancelNavBadge');
       if (badge) { badge.textContent = pending || ''; badge.style.display = pending ? '' : 'none'; }
