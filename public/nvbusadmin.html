@@ -418,11 +418,11 @@ tbody tr.read-row{cursor:pointer}
     <div class="login-logo">NV Bus · Admin</div>
     <div class="login-title">Welcome <em>back</em></div>
     <div class="login-sub">Niseko Village Bus · Summer 2026</div>
-    <div class="login-field"><label>Username</label><input type="text" id="loginUser" placeholder="admin" autocomplete="username"></div>
+    <div class="login-field"><label>Username</label><input type="text" id="loginUser" placeholder="Username" autocomplete="username"></div>
     <div class="login-field"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"></div>
     <div class="login-error" id="loginError">Incorrect username or password.</div>
     <button class="login-btn" id="loginBtn">Sign In →</button>
-    <div class="login-hint">Default · admin / niseko2026</div>
+
   </div>
 </div>
 
@@ -2283,7 +2283,7 @@ function openStatusAction(id) {
     footer.innerHTML  = `
       <button class="btn-cancel" id="saNo">Keep Confirmed</button>
       <button class="btn-save no-anim" id="saYes" style="background:var(--red);border-color:var(--red)">Cancel Reservation</button>`;
-    document.getElementById('saYes').onclick = () => {
+    document.getElementById('saYes').onclick = async () => {
       const reason = document.getElementById('saCancelReason').value.trim();
       if (!reason) { document.getElementById('saCancelReasonErr').style.display='block'; return; }
       try { await updateRes(id, {
@@ -2469,7 +2469,7 @@ document.getElementById('cancelStatusFooter').addEventListener('click', e => {
   }
 });
 
-document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
+document.getElementById('deleteSelectedBtn').addEventListener('click', async () => {
   if (!selectedIds.size) return;
   const n = selectedIds.size;
   if (confirm(`Move ${n} selected reservation(s) to the Trash?`)) {
@@ -2484,22 +2484,13 @@ document.getElementById('e_dir').addEventListener('change', () => { fillBusSelec
 document.getElementById('e_bus').addEventListener('change', updateEditDateHint);
 
 document.getElementById('saveCredsBtn').addEventListener('click', () => {
-  const u = document.getElementById('newUser').value.trim();
-  const p = document.getElementById('newPass').value;
-  const p2 = document.getElementById('newPassConfirm').value;
-  if (!u) { toast('Username cannot be empty.', 'err'); return; }
-  if (p.length < 6) { toast('Password must be at least 6 characters.', 'err'); return; }
-  if (p !== p2) { toast('Passwords do not match.', 'err'); return; }
-  if (saveCreds(u,p)) {
-    document.getElementById('newPass').value=''; document.getElementById('newPassConfirm').value='';
-    updateTopbarMeta(); toast('✓ Credentials updated');
-  }
+  toast('Credentials are managed via Railway environment variables.', 'err');
 });
 
-document.getElementById('nukeBtn').addEventListener('click', () => {
+document.getElementById('nukeBtn').addEventListener('click', async () => {
   if (confirm('DELETE ALL reservations? This cannot be undone.')) { try { await api('DELETE','/api/reservations'); _res=[]; renderDashboard(); renderResTable(); toast('All reservations deleted','err'); } catch(e){toast(e.message,'err');} }
 });
-document.getElementById('nukeCancelBtn').addEventListener('click', () => {
+document.getElementById('nukeCancelBtn').addEventListener('click', async () => {
   if (confirm('DELETE ALL cancellation requests? This cannot be undone.')) { try { await api('DELETE','/api/cancellations'); _cancel=[]; renderDashboard(); renderCancelTable(); updateCancelBadge(); toast('All cancellation requests deleted','err'); } catch(e){toast(e.message,'err');} }
 });
 
@@ -2617,7 +2608,7 @@ document.getElementById('cancelTableWrap').addEventListener('click', e => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', renderCancelTable);
 });
-document.getElementById('deleteSelectedCancelBtn').addEventListener('click', () => {
+document.getElementById('deleteSelectedCancelBtn').addEventListener('click', async () => {
   if (!selectedCancelIds.size) return;
   const n = selectedCancelIds.size;
   if (confirm(`Move ${n} selected request(s) to Trash?`)) { moveMultipleCancelToTrash([...selectedCancelIds]).then(()=>{ selectedCancelIds.clear(); document.getElementById('deleteSelectedCancelBtn').style.display='none'; renderCancelTable(); renderDashboard(); updateCancelBadge(); updateTrashBadge(); toast(`Moved ${n} requests to Trash`); }).catch(e=>toast(e.message,'err')); }
@@ -2700,7 +2691,7 @@ document.getElementById('trashSearchInput').addEventListener('input', renderTras
 
 
 
-document.getElementById('emptyTrashBtn').addEventListener('click', () => {
+document.getElementById('emptyTrashBtn').addEventListener('click', async () => {
   const n = loadTrash().length;
   if (!n) { toast('Trash is already empty.', 'err'); return; }
   if (confirm(`Permanently delete all ${n} item(s) in Trash? This cannot be undone.`)) {
