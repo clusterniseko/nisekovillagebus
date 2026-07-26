@@ -81,7 +81,7 @@ app.get('/api/reservations', requireAuth, async (req, res) => {
       params
     );
     res.json(rows.map(dbToRes));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // POST /api/reservations  (guest app — no auth required)
@@ -111,7 +111,7 @@ app.post('/api/reservations', async (req, res) => {
       ]
     );
     res.status(201).json(dbToRes(rows[0]));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // PATCH /api/reservations/:id
@@ -155,7 +155,7 @@ app.patch('/api/reservations/:id', requireAuth, async (req, res) => {
     );
     if (!rows.length) return res.status(404).json({ error: 'Not found' });
     res.json(dbToRes(rows[0]));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/reservations/:id  → move to trash
@@ -166,7 +166,7 @@ app.delete('/api/reservations/:id', requireAuth, requireMaster, async (req, res)
       [req.params.id]
     );
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // POST /api/reservations/confirm-all  (master only)
@@ -177,7 +177,7 @@ app.post('/api/reservations/confirm-all', requireAuth, requireMaster, async (req
        WHERE status = 'pending' AND trashed_at IS NULL`
     );
     res.json({ confirmed: rowCount });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/reservations  → delete all (master only, used in settings)
@@ -185,7 +185,7 @@ app.delete('/api/reservations', requireAuth, requireMaster, async (req, res) => 
   try {
     await pool.query(`UPDATE reservations SET trashed_at = NOW() WHERE trashed_at IS NULL`);
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // ══════════════════════════════════════════════════════════════════════════
@@ -204,7 +204,7 @@ app.get('/api/cancellations', requireAuth, async (req, res) => {
       params
     );
     res.json(rows.map(dbToCancel));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // POST /api/cancellations  (guest app — no auth required)
@@ -217,7 +217,7 @@ app.post('/api/cancellations', async (req, res) => {
       [r.ref, r.first, r.last, r.email, r.date, r.hotel || null, r.reason || null]
     );
     res.status(201).json(dbToCancel(rows[0]));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // PATCH /api/cancellations/:id
@@ -238,7 +238,7 @@ app.patch('/api/cancellations/:id', requireAuth, async (req, res) => {
     );
     if (!rows.length) return res.status(404).json({ error: 'Not found' });
     res.json(dbToCancel(rows[0]));
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/cancellations/:id  → move to trash
@@ -249,7 +249,7 @@ app.delete('/api/cancellations/:id', requireAuth, requireMaster, async (req, res
       [req.params.id]
     );
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/cancellations  → delete all (master only)
@@ -257,7 +257,7 @@ app.delete('/api/cancellations', requireAuth, requireMaster, async (req, res) =>
   try {
     await pool.query(`UPDATE cancellations SET trashed_at = NOW() WHERE trashed_at IS NULL`);
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // ══════════════════════════════════════════════════════════════════════════
@@ -276,7 +276,7 @@ app.get('/api/trash', requireAuth, requireMaster, async (req, res) => {
       ...can1.rows.map(r => ({ ...dbToCancel(r), _trashType: 'cancellation', _trashedAt: r.trashed_at })),
     ].sort((a, b) => new Date(b._trashedAt) - new Date(a._trashedAt));
     res.json(items);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // POST /api/trash/:id/restore
@@ -290,7 +290,7 @@ app.post('/api/trash/:id/restore', requireAuth, requireMaster, async (req, res) 
     );
     if (!rows.length) return res.status(404).json({ error: 'Not found' });
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/trash/:id  → permanent delete
@@ -300,7 +300,7 @@ app.delete('/api/trash/:id', requireAuth, requireMaster, async (req, res) => {
     const table = type === 'cancellation' ? 'cancellations' : 'reservations';
     await pool.query(`DELETE FROM ${table} WHERE id = $1 AND trashed_at IS NOT NULL`, [req.params.id]);
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // DELETE /api/trash  → empty trash
@@ -311,7 +311,7 @@ app.delete('/api/trash', requireAuth, requireMaster, async (req, res) => {
       pool.query(`DELETE FROM cancellations WHERE trashed_at IS NOT NULL`),
     ]);
     res.json({ ok: true });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { console.error(e.message); res.status(500).json({ error: e.message }); }
 });
 
 // ── Mappers: DB row → JS object (snake_case → camelCase) ──────────────────
