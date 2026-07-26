@@ -360,6 +360,8 @@ tbody tr.read-row{cursor:pointer}
 .history-entry-status.pending{background:rgba(180,140,40,.12);color:#7a5c00}
 .history-entry-status.cancelled{background:rgba(140,42,32,.1);color:var(--red)}
 .history-entry-status.deleted{background:rgba(150,150,150,.12);color:var(--sage)}
+.history-entry-status.resolved{background:rgba(31,58,38,.1);color:var(--moss)}
+.history-entry-status.rejected{background:rgba(150,150,150,.12);color:var(--sage)}
 .history-entry-reason{font-size:12.5px;color:var(--sage);font-style:italic;margin-top:4px;letter-spacing:.03em}
 .history-entry-source{font-size:11px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
 .history-entry-ts{font-size:11.5px;color:var(--sage);letter-spacing:.08em;margin-top:3px}
@@ -862,12 +864,17 @@ let _res     = [];
 let _cancel  = [];
 let _trash   = [];
 
+const trimDate = r => ({ ...r, date: (r.date||'').slice(0,10) || r.date });
+
 async function refreshAll() {
   [_res, _cancel, _trash] = await Promise.all([
     api('GET', '/api/reservations'),
     api('GET', '/api/cancellations'),
     api('GET', '/api/trash').catch(() => []),
   ]);
+  _res    = _res.map(trimDate);
+  _cancel = _cancel.map(trimDate);
+  _trash  = _trash.map(trimDate);
 }
 
 /* ── Bus data — IDs match frontend exactly (A2b, B1a, etc.)
@@ -906,7 +913,7 @@ function loadTrash()  { return _trash; }
 /* ── Reservations ── */
 async function updateRes(id, changes) {
   const updated = await api('PATCH', `/api/reservations/${id}`, changes);
-  _res = _res.map(r => r.id === id ? { ...r, ...updated } : r);
+  _res = _res.map(r => r.id === id ? trimDate({ ...r, ...updated }) : r);
 }
 async function deleteRes(id) {
   await api('DELETE', `/api/reservations/${id}`);
@@ -981,6 +988,7 @@ async function tryLogin() {
     _token = data.token;
     currentUser = { username: u, role: data.role, label: data.label, hotelFilter: data.hotelFilter };
     await refreshAll();
+    startPolling();
     applyRoleUI();
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminShell').style.display = 'block';
@@ -1833,7 +1841,7 @@ function renderHistoryPanel(query) {
   container.innerHTML = Object.values(groups).map(g => {
     const entries = g.entries.map(r => {
       const src    = r._source;
-      const status = src === 'deleted' ? 'deleted' : src === 'cancellation' ? 'cancelled' : (r.status||'pending');
+      const status = src === 'deleted' ? 'deleted' : (r.status||'pending');
       const reasonHtml = r.reason ? `<div class="history-entry-reason">Reason: ${r.reason}</div>` : '';
       const notesHtml  = r.notes  ? `<div class="history-entry-reason" style="color:var(--dim)">Notes: ${r.notes}</div>` : '';
       const flightHtml = r.flight ? `<div class="history-entry-reason" style="color:var(--dim)">Flight: ${r.flight}${r.flightType ? ` (${r.flightType})` : ''}</div>` : '';
@@ -2356,8 +2364,10 @@ function openCancelStatusAction(r) {
 
   // Pending — find matching reservation by ref + email
   _csa_type = 'confirm';
+  const normalizeRef = s => (s||'').replace(/-/g,'').toUpperCase();
   const matchedRes = loadRes().find(x =>
-    (x.id === r.ref || x.reservationId === r.ref) && x.email.toLowerCase() === r.email.toLowerCase()
+    (normalizeRef(x.id) === normalizeRef(r.ref) || normalizeRef(x.reservationId) === normalizeRef(r.ref)) &&
+    x.email.toLowerCase() === r.email.toLowerCase()
   );
 
   document.getElementById('cancelStatusTitle').textContent = 'Review Cancellation Request';
@@ -2414,8 +2424,10 @@ async function executeCancelStatusAction() {
 
   if (_csa_type === 'confirm') {
     // Approve: mark reservation as cancelled (keep in Reservations), mark request as resolved
+    const normalizeRef = s => (s||'').replace(/-/g,'').toUpperCase();
     const matchedRes = loadRes().find(x =>
-      (x.id === r.ref || x.reservationId === r.ref) && x.email.toLowerCase() === r.email.toLowerCase()
+      (normalizeRef(x.id) === normalizeRef(r.ref) || normalizeRef(x.reservationId) === normalizeRef(r.ref)) &&
+      x.email.toLowerCase() === r.email.toLowerCase()
     );
     if (matchedRes) {
       await updateRes(matchedRes.id, {
@@ -2698,6 +2710,61 @@ document.getElementById('emptyTrashBtn').addEventListener('click', async () => {
     try { await api('DELETE','/api/trash'); _trash=[]; renderTrashTable(); updateTrashBadge(); toast('Trash emptied','err'); } catch(e){toast(e.message,'err');}
   }
 });
+
+/* ════ AUTO-POLLING — refresh every 30 s while logged in ════ */
+let _pollInterval = null;
+
+function getActivePanel() {
+  const el = document.querySelector('.panel.active');
+  if (!el) return null;
+  return el.id.replace('panel-', '');
+}
+
+function reRenderActivePanel() {
+  const panel = getActivePanel();
+  if (panel === 'reservations')  renderResTable();
+  if (panel === 'dashboard')     renderDashboard();
+  if (panel === 'cancellations') renderCancelTable();
+  if (panel === 'trash')         renderTrashTable();
+  if (panel === 'history')       renderHistoryPanel();
+}
+
+async function pollForUpdates() {
+  try {
+    const [newRes, newCancel, newTrash] = await Promise.all([
+      api('GET', '/api/reservations'),
+      api('GET', '/api/cancellations'),
+      api('GET', '/api/trash').catch(() => []),
+    ]);
+    const normRes    = newRes.map(trimDate);
+    const normCancel = newCancel.map(trimDate);
+    const normTrash  = newTrash.map(trimDate);
+
+    const changed =
+      JSON.stringify(normRes)    !== JSON.stringify(_res)    ||
+      JSON.stringify(normCancel) !== JSON.stringify(_cancel) ||
+      JSON.stringify(normTrash)  !== JSON.stringify(_trash);
+
+    if (changed) {
+      _res    = normRes;
+      _cancel = normCancel;
+      _trash  = normTrash;
+      reRenderActivePanel();
+      /* update cancellations badge in nav */
+      const pending = _cancel.filter(r => (r.status||'pending') === 'pending').length;
+      const badge = document.getElementById('cancelNavBadge');
+      if (badge) { badge.textContent = pending || ''; badge.style.display = pending ? '' : 'none'; }
+    }
+  } catch (_) { /* silently ignore network errors during poll */ }
+}
+
+function startPolling() {
+  if (_pollInterval) clearInterval(_pollInterval);
+  _pollInterval = setInterval(pollForUpdates, 30000);
+}
+function stopPolling() {
+  if (_pollInterval) { clearInterval(_pollInterval); _pollInterval = null; }
+}
 </script>
 </body>
 </html>
