@@ -372,10 +372,15 @@ app.get('/api/health', async (_req, res) => {
   }
 });
 
-// ── Fallback: serve index for any non-API route ────────────────────────────
+// ── Clean URLs ────────────────────────────────────────────────────────────
+app.get('/',                (req, res) => res.sendFile(path.join(__dirname, 'public', 'nisekovillagebus.html')));
+app.get('/nisekovillagebus',(req, res) => res.sendFile(path.join(__dirname, 'public', 'nisekovillagebus.html')));
+app.get('/admin',           (req, res) => res.sendFile(path.join(__dirname, 'public', 'nvbusadmin.html')));
+
+// ── Fallback ──────────────────────────────────────────────────────────────
 app.get('*', (req, res) => {
   if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });
-  res.sendFile(path.join(__dirname, 'public', 'niseko-village-bus.html'));
+  res.status(404).send('Not found');
 });
 
 app.listen(PORT, () => console.log(`NVBus API running on port ${PORT}`));
