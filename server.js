@@ -373,9 +373,8 @@ app.get('/api/health', async (_req, res) => {
 });
 
 // ── Clean URLs ────────────────────────────────────────────────────────────
-app.get('/',                (req, res) => res.sendFile(path.join(__dirname, 'public', 'nisekovillagebus.html')));
-app.get('/nisekovillagebus',(req, res) => res.sendFile(path.join(__dirname, 'public', 'nisekovillagebus.html')));
-app.get('/admin',           (req, res) => res.sendFile(path.join(__dirname, 'public', 'nvbusadmin.html')));
+app.get('/',      (req, res) => res.sendFile(path.join(__dirname, 'public', 'nisekovillagebus.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'nvbusadmin.html')));
 
 // ── Fallback ──────────────────────────────────────────────────────────────
 app.get('*', (req, res) => {
