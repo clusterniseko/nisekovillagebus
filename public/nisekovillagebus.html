@@ -65,11 +65,21 @@ body{
 .hero-bg{
   position:absolute;inset:0;
   background-image:url('niseko-hero.jpg');
-  background-size:110%;background-position:center 30%;
-  transition:background-size 14s ease;
+  /* cover + no-repeat: con background-size en % la imagen no cubría
+     el alto del hero en móvil/tablet y se repetía en vertical */
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center 30%;
+  /* el zoom lento se hace con transform, no con background-size */
+  transform:scale(1.02);
+  transform-origin:center 30%;
+  transition:transform 14s ease;
   filter:saturate(1.05) contrast(1.02);
+  will-change:transform;
 }
-.hero:hover .hero-bg{background-size:118%}
+@media (hover:hover){
+  .hero:hover .hero-bg{transform:scale(1.09)}
+}
 .hero-overlay{
   position:absolute;inset:0;
   background:
@@ -772,6 +782,20 @@ img,svg,video{max-width:100%}
 
 /* ── Tablet (≤1024px) ── */
 @media(max-width:1024px){
+  /* Hero más bajo: el contenido va alineado abajo, así que reducir la
+     altura elimina el hueco entre la barra superior y ニセコの夏 */
+  .hero{min-height:clamp(340px,38svh,440px);padding-top:75px}
+  .hero-frame{inset:18px}
+  /* la barra superior debe quedar DENTRO del marco */
+  .hero-top{padding:30px 34px}
+  .hero-content{padding:0 34px 36px}
+  .hero-eyebrow{margin-bottom:14px}
+  .hero-title{font-size:clamp(40px,6vw,62px)}
+  .hero-sub{max-width:58ch;letter-spacing:.14em;margin-bottom:20px}
+  .hero-badges{gap:8px}
+  .hero-jp{display:none}
+  /* el indicador "Scroll" se solapaba con los badges del hero */
+  .hero-scroll{display:none}
   main{padding:44px 24px 70px}
   .buses-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
   .form-grid{gap:18px 20px}
@@ -781,7 +805,13 @@ img,svg,video{max-width:100%}
 
 /* ── Móvil (≤640px) ── */
 @media(max-width:640px){
-  .hero{min-height:78svh}
+  .hero{min-height:clamp(300px,40svh,400px);padding-top:64px}
+  .hero-frame{inset:12px}
+  /* NISEKO VILLAGE / HOKKAIDO 北海道 dentro del marco */
+  .hero-top{padding:22px 22px}
+  .hero-content{padding:0 22px 28px}
+  .hero-eyebrow{margin-bottom:12px}
+  .hero-sub{margin-bottom:18px}
   .nav-tab{padding:15px 14px;min-height:48px}
   main{padding:32px 14px 56px}
 
@@ -815,6 +845,11 @@ img,svg,video{max-width:100%}
 
 /* ── Teléfonos pequeños (≤400px) ── */
 @media(max-width:400px){
+  .hero{min-height:clamp(280px,36svh,350px);padding-top:56px}
+  .hero-frame{inset:10px}
+  .hero-top{padding:18px 18px}
+  .hero-content{padding:0 18px 24px}
+  .hero-sub{margin-bottom:14px}
   main{padding:26px 12px 48px}
   .nav-tab{padding:13px 10px;font-size:9.5px;letter-spacing:.1em}
   .form-wrap,.success-screen{padding:22px 14px}
