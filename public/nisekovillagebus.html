@@ -511,8 +511,8 @@ main{max-width:1100px;margin:0 auto;padding:80px 32px 120px}
 .section-title em{font-style:italic;color:var(--gold);font-size:24px}
 .faq-with-img{display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:start}
 .faq-img-aside{position:sticky;top:96px;overflow:hidden;border:1px solid var(--hairline)}
-.faq-img-aside img{width:100%;height:280px;object-fit:contain;object-position:center;display:block;filter:saturate(1.05);background:linear-gradient(135deg,#1f3a26 0%,#2d5236 100%)}
-.faq-img-aside .faq-img-caption{padding:18px 20px;background:var(--moss);font-size:14px;color:rgba(207,217,201,.85);letter-spacing:.06em;line-height:1.6}
+.faq-img-aside img{width:100%;height:240px;object-fit:contain;object-position:center;display:block;filter:saturate(1.05);background:var(--moss)}
+.faq-img-aside .faq-img-caption{padding:8px 20px 18px;background:var(--moss);font-size:14px;color:rgba(207,217,201,.85);letter-spacing:.06em;line-height:1.6}
 .faq-img-aside .faq-img-caption strong{display:block;color:#fff;font-size:20px;margin-bottom:5px;font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:0}
 .faq-item{border-bottom:1px solid var(--hairline)}
 .faq-q{width:100%;text-align:left;padding:20px 0;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;color:var(--ink);letter-spacing:.02em;transition:color .2s ease}
@@ -521,7 +521,7 @@ main{max-width:1100px;margin:0 auto;padding:80px 32px 120px}
 .faq-item.open .faq-arrow{transform:rotate(180deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:15.5px;line-height:1.85;color:var(--ink-soft)}
 .faq-a-inner{padding-bottom:22px;padding-right:32px}
-.faq-item.open .faq-a{max-height:1200px}
+
 .conn-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:10px;border:1px solid var(--hairline)}
 .conn-table th{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--moss);font-weight:500;padding:12px 16px;text-align:left;background:var(--paper);border-bottom:1px solid var(--hairline)}
 .conn-table td{padding:12px 16px;border-bottom:1px solid var(--hairline);color:var(--ink)}
@@ -640,23 +640,19 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 .footer-img-strip div::after,.footer-img-strip a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,18,12,.25) 65%,rgba(243,236,223,.55) 100%);pointer-events:none}
 .strip-label{position:absolute;top:28px;right:14px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#fff;font-weight:400;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s;text-shadow:0 1px 6px rgba(0,0,0,.7);pointer-events:none;z-index:2}
 .footer-img-strip a:hover .strip-label{opacity:1;transform:translateY(0)}
-.footer-body{padding:14px 48px 10px;display:flex;justify-content:center;align-items:center;border-top:1px solid var(--hairline);position:relative}
-.footer-brand{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:var(--moss);letter-spacing:.005em;font-style:italic;line-height:1.05;text-align:center;justify-self:center}
-.footer-brand span{display:block;font-family:'DM Sans',sans-serif;font-style:normal;font-size:11.5px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-top:14px;font-weight:500}
-.footer-brand span::before{content:"";display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;margin-right:14px;transform:translateY(-2px)}
-.footer-brand span::after{content:"";display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;margin-left:14px;transform:translateY(-2px)}
 .footer-links{display:flex;gap:28px;flex-wrap:wrap;align-items:center}
-.footer-body > .footer-links:first-child{justify-content:flex-start}
-.footer-body > .footer-links:last-child{justify-content:flex-end}
-.footer-back-top{font-size:12.5px;letter-spacing:.24em;color:var(--ink-soft);text-decoration:none;transition:color .25s ease;text-transform:uppercase;font-weight:400;position:absolute;right:48px}
+.footer-back-top{color:inherit;text-decoration:none;transition:color .25s ease;white-space:nowrap}
 .footer-back-top:hover{color:var(--moss)}
 .footer-links a{font-size:12.5px;letter-spacing:.24em;color:var(--ink-soft);text-decoration:none;transition:color .25s ease;text-transform:uppercase;position:relative;font-weight:400}
 .footer-links a:hover{color:var(--moss)}
 .footer-links a:hover::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:var(--gold)}
-.footer-meta{width:100%;padding:16px 48px 22px;border-top:1px solid var(--hairline);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);opacity:.7}
+.footer-meta{width:100%;padding:22px 48px 24px;border-top:1px solid var(--hairline);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);opacity:.7}
 .footer-meta span:first-child{justify-self:start;align-self:center;line-height:1}
-.footer-meta .jp{justify-self:center;align-self:center;text-align:center;line-height:1}
-.footer-meta span:last-child{justify-self:end;align-self:center;line-height:1}
+.footer-season{justify-self:center;align-self:center;text-align:center;line-height:1;color:var(--gold);font-weight:500;white-space:nowrap}
+.footer-season::before,.footer-season::after{content:"";display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;transform:translateY(-1px)}
+.footer-season::before{margin-right:14px}
+.footer-season::after{margin-left:14px}
+.footer-meta > :last-child{justify-self:end;align-self:center;line-height:1}
 
 
 
@@ -676,7 +672,6 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .footer-img-strip{grid-template-columns:repeat(2,1fr)}
   .form-wrap{padding:44px 32px 36px}
   .bus-summary-bar{flex-wrap:wrap;gap:16px 0;margin-right:0}
-  .footer-back-top{right:32px}
 }
 
 /* ── Mobile (≤640px) ── */
@@ -714,11 +709,8 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .explore-grid{grid-template-columns:1fr;gap:4px}
   .footer-img-strip{grid-template-columns:repeat(2,1fr)}
   .footer-hero-caption h3{font-size:clamp(22px,6vw,32px)}
-  .footer-body{padding:16px 18px 12px;flex-direction:column;gap:12px;align-items:center}
-  .footer-back-top{position:static;margin-top:4px}
   .footer-meta{padding:12px 18px 18px;grid-template-columns:1fr;gap:6px;text-align:center}
-  .footer-meta span:first-child,.footer-meta span:last-child{justify-self:center}
-  .footer-brand{font-size:24px}
+  .footer-meta > :first-child,.footer-meta > :last-child{justify-self:center}
 }
 
 /* ── Small phones (≤400px) ── */
@@ -822,7 +814,6 @@ img,svg,video{max-width:100%}
 
   /* FAQ */
   .faq-a-inner{padding-right:0}
-  .faq-item.open .faq-a{max-height:2400px}
 
   /* Formularios */
   .form-grid{grid-template-columns:1fr;gap:16px}
@@ -862,6 +853,24 @@ img,svg,video{max-width:100%}
   .hero{min-height:100svh}
   .lang-switcher{bottom:8px}
 }
+
+/* ════ VISUAL REFINEMENT ════ */
+:root{--ink:#122038;--ink-soft:#35455c;--paper:#f4f7fb;--paper-2:#e9f0f7;--cream:#dbe6f0;--moss:#173f7a;--moss-2:#0e2d5c;--sage:#71839b;--sage-soft:#aab9ca;--mist:#d4e0eb;--gold:#d7993e;--gold-soft:#f0bd69;--white:#fff;--shadow:rgba(20,55,100,.13);--shadow-lg:rgba(11,37,76,.25);--hairline:rgba(23,63,122,.14)}
+body{background-color:var(--paper);background-image:radial-gradient(circle at 10% 0%,rgba(57,123,198,.13),transparent 34%),radial-gradient(circle at 100% 28%,rgba(215,153,62,.10),transparent 29%),linear-gradient(135deg,rgba(255,255,255,.52),transparent 50%)}
+.hero{min-height:clamp(580px,84vh,820px)}.hero-bg{filter:saturate(1.08) contrast(1.05)}.hero-overlay{background:linear-gradient(180deg,rgba(7,20,42,.14) 0%,rgba(7,20,42,.12) 34%,rgba(7,20,42,.75) 80%,rgba(7,20,42,.94) 100%),linear-gradient(90deg,rgba(7,20,42,.6) 0%,transparent 62%)}.hero-frame{border-radius:18px;border-color:rgba(255,255,255,.28)}
+.hero-badge,.hero-badge-outline{border-radius:99px}.hero-badge{box-shadow:0 8px 20px rgba(6,24,52,.18)}
+.notice{background:linear-gradient(90deg,#e4edf7,#f7f9fc);color:var(--ink-soft);padding:19px max(32px,calc((100% - 1100px)/2));box-shadow:inset 0 1px rgba(255,255,255,.75)}.notice::before{background:var(--gold);box-shadow:0 0 0 5px rgba(215,153,62,.16)}
+.nav-tabs{background:rgba(255,255,255,.84);border-color:rgba(23,63,122,.1);box-shadow:0 10px 28px -20px rgba(14,45,92,.35)}.nav-tab{letter-spacing:.18em}.nav-tab.active::after{height:3px;border-radius:3px 3px 0 0}
+main{max-width:1160px}.panel-head h2{font-size:clamp(40px,4.8vw,58px)}
+.period-pills{border-radius:12px;overflow:hidden;box-shadow:0 8px 22px rgba(20,55,100,.07)}.period-pill{padding:12px 25px}.period-pill.active{box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.bus-card{border-radius:16px;border-color:rgba(23,63,122,.12);box-shadow:0 8px 24px rgba(20,55,100,.05)}.bus-card:hover{transform:translateY(-7px);box-shadow:0 24px 54px -20px var(--shadow-lg)}.bus-card::before{height:4px;background:linear-gradient(90deg,var(--moss),#397bc6 58%,var(--gold))}.bus-card-img{background:linear-gradient(135deg,#102c58,#235b9b)}.bus-card-img-overlay{background:linear-gradient(135deg,rgba(7,26,55,.62),rgba(7,26,55,.12) 72%)}.bus-card-img .corner{border-radius:99px}.book-btn,.submit-btn,.success-btn,.modal-go-btn{border-radius:9px;box-shadow:0 8px 18px rgba(23,63,122,.16)}.book-btn:hover,.submit-btn:hover,.success-btn:hover,.modal-go-btn:hover{background:var(--moss-2)}
+.form-wrap,.success-screen{border-radius:18px;border-color:rgba(23,63,122,.12);box-shadow:0 28px 72px -40px var(--shadow-lg)}.form-wrap::before,.success-screen::before{height:4px;background:linear-gradient(90deg,var(--moss),#397bc6 56%,var(--gold))}.reserve-notice{border-radius:10px;background:#f4f8fc}.field input,.field select,.field textarea{background:#f5f8fc;border:1px solid transparent;border-bottom-color:#ccd9e7;border-radius:8px;padding:12px 13px}.field input:focus,.field select:focus,.field textarea:focus{border-color:#397bc6;background:#fff;box-shadow:0 0 0 4px rgba(57,123,198,.11)}
+.bus-summary-bar,.success-ref,.terms-block,.airport-card,.conn-table{border-radius:12px;overflow:hidden}.bus-summary-bar{background:#edf3f9}.success-check{box-shadow:0 0 0 9px rgba(23,63,122,.09)}
+.explore-card{border-radius:14px;box-shadow:0 10px 26px rgba(20,55,100,.1)}.faq-img-aside{border-radius:14px;box-shadow:0 12px 32px rgba(20,55,100,.09)}.airport-card{box-shadow:0 10px 28px rgba(20,55,100,.06)}.terms-block{box-shadow:0 10px 28px rgba(20,55,100,.05)}
+.modal{border-radius:16px;box-shadow:0 34px 90px -20px rgba(6,27,60,.5)}.modal-overlay{background:rgba(5,22,48,.65)}.modal-go-btn{margin-top:3px}.toast{border-radius:11px;box-shadow:0 18px 38px rgba(6,27,60,.28)}
+.footer-hero{background:#102c58}
+@media(max-width:1024px){.hero{min-height:clamp(340px,42svh,470px)}.content{padding-left:26px;padding-right:26px}}
+@media(max-width:640px){.hero{min-height:clamp(310px,43svh,410px)}.hero-frame{border-radius:13px}.notice{padding:16px 22px}.bus-card,.form-wrap,.success-screen{border-radius:13px}.form-wrap,.success-screen{box-shadow:0 18px 42px -28px var(--shadow-lg)}}
 
 </style>
 </head>
@@ -1201,7 +1210,7 @@ img,svg,video{max-width:100%}
           <img src="bus.jpg" alt="Niseko Village Bus" onerror="this.style.display='none'">
           <div class="faq-img-caption">
             <strong>Niseko Village Limousine Bus</strong>
-            Comfortable direct service between New Chitose Airport and hotels within Niseko Village.
+            <span class="faq-cap-body">Comfortable direct service between New Chitose Airport and hotels within Niseko Village.</span>
           </div>
         </div>
       </div>
@@ -1237,14 +1246,10 @@ img,svg,video{max-width:100%}
       <h3 id="footerHeroTitle">Where Hokkaido <em>Breathes</em></h3>
     </div>
   </div>
-  <div class="footer-body">
-    <div class="footer-brand">Niseko Village<span>Summer 2027</span></div>
-    <a href="#" class="footer-back-top" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</a>
-  </div>
   <div class="footer-meta">
     <span>© 2027 Niseko Village</span>
-    <span class="jp">羊蹄山の麓にて</span>
-    <span>Hokkaido · Japan</span>
+    <span class="footer-season">Summer 2027</span>
+    <a href="#" class="footer-back-top" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</a>
   </div>
 </footer>
 
@@ -1316,7 +1321,7 @@ const EXPLORE_LINKS = [
 ];
 
 const FAQS = [
-  { q:'Where is the meeting point at New Chitose Airport?', a:'Bus stop <strong>#98</strong> on the 1st floor of the International Terminal Building. From the Domestic Terminal, you must take the 2nd-floor connecting walkway (moving walkways available) to the International Terminal and then go down to the 1st floor. <br>For passengers arriving on international flights, the meeting point is in front of the 2F arrivals hall — once everyone is accounted for, the group moves to the bus stop together.<br><br><img src="Bus-stop.png" alt="New Chitose Airport Bus Stop No.98 map" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="Click to enlarge">' },
+  { q:'Where is the meeting point at New Chitose Airport?', a:'Bus stop <strong>#98</strong> on the 1st floor of the International Terminal Building. From the Domestic Terminal, you must take the 2nd-floor connecting walkway (moving walkways available) to the International Terminal and then go down to the 1st floor. <br>For passengers arriving on international flights, the meeting point is in front of the 2F arrivals hall — once everyone is accounted for, the group moves to the bus stop together.<br><br><img src="Bus-stop.png" alt="New Chitose Airport Bus Stop No.98 map" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="Click to enlarge"><img src="Bus-stop-98.png" alt="Route from the Domestic Terminal to Bus Stop No.98" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="Click to enlarge">' },
   { q:'My flight is delayed — will the bus wait?', a:'As a general rule, buses depart on time. If seats are available on the next bus, arrangements will be made; otherwise, guests will need to make their own way to Niseko (e.g. by JR train).' },
   { q:'Are seats assigned?', a:'Seating is first-come, first-served. No advance seat reservations, but please let us know if you require special assistance (e.g. wheelchair users).' },
   { q:'Is there a toilet on the bus?', a:'No onboard toilet. However, one toilet break stop is made during the journey.' },
@@ -1808,13 +1813,47 @@ document.getElementById('backToScheduleBtn').addEventListener('click', () => {
   switchPanel('schedule');
 });
 
+/* FAQ accordion: height follows real content, and closing an item ABOVE
+   the clicked one no longer pushes the page down (towards the footer). */
+function faqClose(it, instant){
+  const a = it.querySelector('.faq-a');
+  if (instant) a.style.transition = 'none';
+  a.style.maxHeight = a.scrollHeight + 'px';   /* from 'none' to a number */
+  a.offsetHeight;                               /* force reflow */
+  a.style.maxHeight = '0px';
+  it.classList.remove('open');
+  if (instant) { a.offsetHeight; a.style.transition = ''; }
+}
+function faqOpen(it){
+  const a = it.querySelector('.faq-a');
+  it.classList.add('open');
+  a.style.maxHeight = a.scrollHeight + 'px';
+  a.addEventListener('transitionend', function done(ev){
+    if (ev.propertyName !== 'max-height') return;
+    a.removeEventListener('transitionend', done);
+    if (it.classList.contains('open')) a.style.maxHeight = 'none'; /* images loading later still fit */
+  });
+}
 document.getElementById('faqList').addEventListener('click', e => {
   if (e.target.classList.contains('lightbox-trigger')) return;
+  if (!e.target.closest('.faq-q')) return;
   const item = e.target.closest('.faq-item');
   if (!item) return;
   const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!wasOpen) item.classList.add('open');
+  const topBefore = item.getBoundingClientRect().top;
+  document.querySelectorAll('#faqList .faq-item.open').forEach(i => {
+    if (i === item) return;
+    const above = i.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_FOLLOWING;
+    faqClose(i, !!above);
+  });
+  const shift = item.getBoundingClientRect().top - topBefore;
+  if (shift) window.scrollBy({ top: shift, behavior: 'instant' });
+  if (wasOpen) { faqClose(item, false); return; }
+  faqOpen(item);
+  /* bring the opened question to the top, just below the sticky tabs */
+  const navH = document.querySelector('.nav-tabs')?.offsetHeight || 0;
+  const y = item.getBoundingClientRect().top + window.scrollY - navH - 16;
+  window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
 });
 
 let _lang = 'en';
@@ -1931,7 +1970,7 @@ LOCALE.ja = {
     'なお、予約がない場合はバスを運行しない場合があります。',
   ],
   faqs:[
-    {q:'新千歳空港での集合場所はどこですか？',a:'国際線ターミナルビル1階の<strong>バスのりば98番</strong>です。国内線ターミナルからは、2階の連絡通路（動く歩道あり）を通って国際線ターミナルへ移動し、1階に降りてください。<br>国際線ご利用のお客様は2階到着ホール前が集合場所となります。全員そろい次第、バスのりばへご案内します。<br><br><img src="Bus-stop.png" alt="新千歳空港バスのりば98番マップ" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="クリックして拡大">'},
+    {q:'新千歳空港での集合場所はどこですか？',a:'国際線ターミナルビル1階の<strong>バスのりば98番</strong>です。国内線ターミナルからは、2階の連絡通路（動く歩道あり）を通って国際線ターミナルへ移動し、1階に降りてください。<br>国際線ご利用のお客様は2階到着ホール前が集合場所となります。全員そろい次第、バスのりばへご案内します。<br><br><img src="Bus-stop.png" alt="新千歳空港バスのりば98番マップ" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="クリックして拡大"><img src="Bus-stop-98.png" alt="国内線ターミナルからバスのりば98番までのルート" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="クリックして拡大">'},
     {q:'フライトが遅延した場合、バスは待ってくれますか？',a:'原則として、バスは定刻に出発します。次のバスに空席がある場合は手配いたします。それ以外の場合は、ゲスト自身でニセコへの移動（JR等）が必要となります。'},
     {q:'座席は指定できますか？',a:'座席は先着順となります。事前の座席予約はできませんが、特別なサポートが必要な場合（車椅子ご利用等）はお知らせください。'},
     {q:'バス内にトイレはありますか？',a:'車内にトイレはございません。ただし、途中でトイレ休憩を1回設けています。'},
@@ -2036,7 +2075,7 @@ LOCALE.ko = {
     '또한, 예약이 없는 경우 버스는 운행하지 않습니다.',
   ],
   faqs:[
-    {q:'신치토세 공항에서 집합 장소는 어디인가요?',a:'국제선 터미널 빌딩 1층 <strong>버스 정류장 98번</strong>입니다. 국내선 터미널에서 오시는 경우, 2층 연결 통도(무빙워크 이용 가능)를 통해 국제선 터미널로 이동한 후 1층으로 내려오세요.<br>국제선 이용 승객의 집합 장소는 2층 도착 홀 앞입니다. 전원 확인 후 함께 버스 정류장으로 이동합니다.<br><br><img src="Bus-stop.png" alt="신치토세 공항 버스 정류장 98번 지도" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="클릭하여 확대">'},
+    {q:'신치토세 공항에서 집합 장소는 어디인가요?',a:'국제선 터미널 빌딩 1층 <strong>버스 정류장 98번</strong>입니다. 국내선 터미널에서 오시는 경우, 2층 연결 통도(무빙워크 이용 가능)를 통해 국제선 터미널로 이동한 후 1층으로 내려오세요.<br>국제선 이용 승객의 집합 장소는 2층 도착 홀 앞입니다. 전원 확인 후 함께 버스 정류장으로 이동합니다.<br><br><img src="Bus-stop.png" alt="신치토세 공항 버스 정류장 98번 지도" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="클릭하여 확대"><img src="Bus-stop-98.png" alt="국내선 터미널에서 98번 버스 정류장까지 가는 길" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="클릭하여 확대">'},
     {q:'항공편이 지연된 경우 버스가 기다려 주나요?',a:'원칙적으로 버스는 정시에 출발합니다. 다음 버스에 좌석이 있는 경우 수배해 드리지만, 그렇지 않은 경우 투숙객께서 직접 니세코로 이동하셔야 합니다(예: JR 열차 등).'},
     {q:'좌석이 지정되어 있나요?',a:'좌석은 선착순입니다. 사전 좌석 예약은 불가하지만, 특별 지원이 필요한 경우(예: 휠체어 이용객)에는 미리 알려주세요.'},
     {q:'버스 내에 화장실이 있나요?',a:'차내 화장실은 없습니다. 단, 여정 중 화장실 휴게 정차를 1회 합니다.'},
@@ -2141,7 +2180,7 @@ LOCALE.zh = {
     '此外，如无预约，巴士将不予运行。',
   ],
   faqs:[
-    {q:'在新千岁机场的集合地点在哪里？',a:'位于国际线航站楼1楼的<strong>98号巴士站</strong>。从国内线航站楼出发，需经由2楼连接通道（设有自动步道）前往国际线航站楼，再下到1楼。<br>乘坐国际航班抵达的旅客，集合地点为2楼到达大厅前——确认人员到齐后，统一前往巴士站。<br><br><img src="Bus-stop.png" alt="新千岁机场巴士站98号地图" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="点击放大">'},
+    {q:'在新千岁机场的集合地点在哪里？',a:'位于国际线航站楼1楼的<strong>98号巴士站</strong>。从国内线航站楼出发，需经由2楼连接通道（设有自动步道）前往国际线航站楼，再下到1楼。<br>乘坐国际航班抵达的旅客，集合地点为2楼到达大厅前——确认人员到齐后，统一前往巴士站。<br><br><img src="Bus-stop.png" alt="新千岁机场巴士站98号地图" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="点击放大"><img src="Bus-stop-98.png" alt="从国内线航站楼前往98号巴士站的路线" class="lightbox-trigger" style="width:100%;max-width:100%;display:block;margin-top:8px;border:1px solid var(--hairline);" title="点击放大">'},
     {q:'航班延误了，巴士会等吗？',a:'原则上，巴士按时出发。如果下一班巴士有空位，我们将为您安排；否则，宾客需自行前往倶知安（如乘坐JR列车）。'},
     {q:'座位有指定吗？',a:'座位按先到先得原则分配，不提供预先座位预订，但如需特别协助（如轮椅使用者），请提前告知我们。'},
     {q:'巴士上有厕所吗？',a:'车内没有厕所。但途中会有一次厕所休息站。'},
@@ -2719,7 +2758,8 @@ function switchLang(lang) {
   if(faqCap){
     const strong=faqCap.querySelector('strong');
     if(strong)strong.textContent=L.faqCaptionTitle;
-    faqCap.childNodes.forEach(n=>{if(n.nodeType===3)n.textContent=L.faqCaptionBody;});
+    const body=faqCap.querySelector('.faq-cap-body');
+    if(body)body.textContent=L.faqCaptionBody;
   }
   document.querySelector('.terms-title').innerHTML=L.termsTitle;
   document.querySelectorAll('.terms-list li').forEach((li,i)=>{
@@ -2733,14 +2773,12 @@ function switchLang(lang) {
   document.getElementById('modalGo').textContent=L.modalGo;
 
   /* footer */
-  const fb=document.querySelector('.footer-brand');
-  if(fb){const span=fb.querySelector('span');fb.textContent=L.footerBrand;if(span){span.textContent=L.footerTagline;fb.appendChild(span);}}
   const fbt=document.querySelector('.footer-back-top');
   if(fbt)fbt.textContent=L.footerBack;
-  const fmeta=document.querySelectorAll('.footer-meta span');
-  if(fmeta[0])fmeta[0].textContent=L.footerMeta[0];
-  if(fmeta[1]&&fmeta[1].classList.contains('jp'))fmeta[1].textContent=L.footerMeta[1];
-  if(fmeta[2])fmeta[2].textContent=L.footerMeta[2];
+  const fmeta=document.querySelector('.footer-meta span');
+  if(fmeta)fmeta.textContent=L.footerMeta[0];
+  const fseason=document.querySelector('.footer-season');
+  if(fseason)fseason.textContent=L.footerTagline;
   const lbh=document.querySelector('.lightbox-hint'); if(lbh)lbh.textContent=L.lightboxHint;
 
   /* footer captions for active panel */
@@ -2765,6 +2803,10 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.add('active');
     if (lang === 'en') {
       try{localStorage.setItem('nvbus_lang','en');}catch(e){}
+      try{
+        const panel=document.querySelector('.nav-tab.active')?.dataset?.panel||'schedule';
+        sessionStorage.setItem('nvbus_restore',JSON.stringify({panel,y:window.scrollY}));
+      }catch(e){}
       location.reload();
     } else {
       switchLang(lang);
@@ -2788,6 +2830,19 @@ document.getElementById('f_bus').addEventListener('change',()=>document.getEleme
         switchLang(saved);
       }
     }
+  }catch(e){}
+})();
+
+/* Restore active panel + scroll after switching back to English (reload) */
+(function(){
+  try{
+    const raw=sessionStorage.getItem('nvbus_restore');
+    if(!raw)return;
+    sessionStorage.removeItem('nvbus_restore');
+    const {panel,y}=JSON.parse(raw);
+    if('scrollRestoration' in history)history.scrollRestoration='manual';
+    if(panel&&panel!=='schedule'&&document.getElementById(`panel-${panel}`))switchPanel(panel);
+    requestAnimationFrame(()=>window.scrollTo({top:y||0,behavior:'instant'}));
   }catch(e){}
 })();
 </script>
