@@ -887,13 +887,14 @@ main{max-width:1160px}.panel-head h2{font-size:clamp(40px,4.8vw,58px)}
   .bus-summary-bar{padding-right:44px}
   .bus-summary-bar .bus-summary-item:nth-last-child(2){border-bottom:none;padding-bottom:0}
 }
-/* footer meta en móvil/tablet: Back to top → Summer 2027 → © centrados */
+/* footer meta en móvil/tablet: solo Back to top, centrado */
 @media(max-width:1024px){
-  .footer-meta{grid-template-columns:1fr;gap:14px;text-align:center;padding:22px 18px 72px}
-  .footer-meta > *,.footer-meta span:first-child,.footer-meta > :last-child{justify-self:center}
-  .footer-meta .footer-back-top{order:1}
-  .footer-meta .footer-season{order:2}
-  .footer-meta span:first-child{order:3}
+  .footer-meta{display:flex;justify-content:center;padding:16px 18px}
+  .footer-meta > span{display:none}
+}
+/* en móvil el selector de idioma ocupa el centro: Back to top a la derecha, a su lado */
+@media(max-width:640px){
+  .footer-meta{justify-content:flex-end;padding:18px 18px 22px}
 }
 </style>
 </head>
