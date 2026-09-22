@@ -872,6 +872,29 @@ main{max-width:1160px}.panel-head h2{font-size:clamp(40px,4.8vw,58px)}
 @media(max-width:1024px){.hero{min-height:clamp(340px,42svh,470px)}.content{padding-left:26px;padding-right:26px}}
 @media(max-width:640px){.hero{min-height:clamp(310px,43svh,410px)}.hero-frame{border-radius:13px}.notice{padding:16px 22px}.bus-card,.form-wrap,.success-screen{border-radius:13px}.form-wrap,.success-screen{box-shadow:0 18px 42px -28px var(--shadow-lg)}}
 
+/* clear pre-filled bus selection (icono en esquina superior derecha) */
+.bus-summary-bar .bus-summary-item:nth-last-child(2){border-right:none;margin-right:0;padding-right:0}
+.bus-summary-clear{
+  position:absolute;top:6px;right:6px;
+  width:26px;height:26px;padding:0;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px solid transparent;cursor:pointer;
+  font:inherit;font-size:13px;line-height:1;color:var(--sage);
+  transition:color .2s,border-color .2s,background .2s
+}
+.bus-summary-clear:hover,.bus-summary-clear:focus-visible{color:var(--moss);border-color:var(--gold);background:var(--white);outline:none}
+@media(max-width:640px){
+  .bus-summary-bar{padding-right:44px}
+  .bus-summary-bar .bus-summary-item:nth-last-child(2){border-bottom:none;padding-bottom:0}
+}
+/* footer meta en móvil/tablet: Back to top → Summer 2027 → © centrados */
+@media(max-width:1024px){
+  .footer-meta{grid-template-columns:1fr;gap:14px;text-align:center;padding:22px 18px 72px}
+  .footer-meta > *,.footer-meta span:first-child,.footer-meta > :last-child{justify-self:center}
+  .footer-meta .footer-back-top{order:1}
+  .footer-meta .footer-season{order:2}
+  .footer-meta span:first-child{order:3}
+}
 </style>
 </head>
 <body>
@@ -959,6 +982,7 @@ main{max-width:1160px}.panel-head h2{font-size:clamp(40px,4.8vw,58px)}
           <span class="bus-summary-lbl">Period</span>
           <span class="bus-summary-val" id="busSummary_period">—</span>
         </div>
+        <button type="button" class="bus-summary-clear" id="busSummaryClear" aria-label="Clear selection" title="Clear selection"><span aria-hidden="true">✕</span></button>
       </div>
 
       <div class="reserve-notice">
@@ -2845,6 +2869,31 @@ document.getElementById('f_bus').addEventListener('change',()=>document.getEleme
     requestAnimationFrame(()=>window.scrollTo({top:y||0,behavior:'instant'}));
   }catch(e){}
 })();
+
+/* ════ Clear pre-filled bus selection ════ */
+LOCALE.en.clearSel = 'Clear selection';
+if (LOCALE.ja) LOCALE.ja.clearSel = '選択をクリア';
+if (LOCALE.ko) LOCALE.ko.clearSel = '선택 해제';
+if (LOCALE.zh) LOCALE.zh.clearSel = '清除选择';
+function syncClearSelBtn(){
+  const b = document.getElementById('busSummaryClear');
+  if (!b) return;
+  const txt = t().clearSel || LOCALE.en.clearSel;
+  b.setAttribute('aria-label', txt);
+  b.title = txt;
+}
+document.getElementById('busSummaryClear').addEventListener('click', () => {
+  pendingBus = null;
+  document.getElementById('f_dir').value = '';
+  updateBusOptions();          /* resetea f_bus y flight type, oculta la barra */
+  updateDateHint();            /* sin bus: limpia fecha, hint y min/max */
+  ['f_dir','f_bus','f_date'].forEach(id => setFieldError(id, false));
+  document.getElementById('formBusLabel').textContent = t().reserveSubtitle;
+  document.getElementById('f_dir').focus({ preventScroll: true });
+});
+const _origSwitchLangClear = switchLang;
+switchLang = function(lang){ _origSwitchLangClear(lang); syncClearSelBtn(); };
+syncClearSelBtn();
 </script>
 </body>
 </html>
